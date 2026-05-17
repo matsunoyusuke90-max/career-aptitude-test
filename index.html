@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>職業適性診断 ｜ RIASEC（ホランド理論）40問</title>
+<meta name="description" content="RIASEC（ホランド理論）にもとづく40問の職業適性自己診断。6つの適性タイプと向いている職種・業種がわかります。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4F1E8;
+    --surface:#FFFFFF;
+    --surface-soft:#FBF9F2;
+    --ink:#2A2722;
+    --ink-soft:#6B655B;
+    --ink-faint:#9A938680;
+    --line:#E2DCCD;
+    --line-soft:#EBE6D9;
+    --accent:#2C6F5E;
+    --accent-deep:#1E4D42;
+    --accent-soft:#E4EFEA;
+    --c-r:#B07A2B; --c-i:#2F6FB0; --c-a:#B0497A;
+    --c-s:#2C7D63; --c-e:#C25A33; --c-c:#6257A8;
+    --radius:14px;
+    --radius-sm:9px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    font-family:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic UI",sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 60px;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:0 22px;}
+  .serif{font-family:"Shippori Mincho","Hiragino Mincho ProN",serif;}
+
+  /* ---- header ---- */
+  header{padding:38px 0 26px;text-align:center;}
+  header .eyebrow{
+    font-size:11px;letter-spacing:.34em;color:var(--accent);
+    font-weight:700;text-indent:.34em;margin-bottom:14px;
+  }
+  header h1{
+    font-family:"Shippori Mincho",serif;font-weight:700;
+    font-size:30px;letter-spacing:.04em;line-height:1.4;
+  }
+  header .lead{
+    font-size:13.5px;color:var(--ink-soft);margin-top:12px;
+  }
+  .rule{
+    width:46px;height:2px;background:var(--accent);
+    margin:20px auto 0;
+  }
+
+  /* ---- generic card ---- */
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:26px 26px;
+  }
+  .card + .card{margin-top:16px;}
+
+  .section-label{
+    font-family:"Shippori Mincho",serif;
+    font-size:17px;font-weight:700;letter-spacing:.04em;
+    display:flex;align-items:center;gap:11px;margin-bottom:16px;
+  }
+  .section-label::before{
+    content:"";width:13px;height:13px;flex:none;
+    background:var(--accent);border-radius:3px;transform:rotate(45deg);
+  }
+
+  /* ---- intro ---- */
+  .intro-text{font-size:14.5px;color:var(--ink-soft);}
+  .intro-text strong{color:var(--ink);font-weight:700;}
+  .type-legend{
+    display:grid;grid-template-columns:1fr 1fr;gap:9px 16px;
+    margin-top:18px;
+  }
+  .type-legend .tl{
+    display:flex;align-items:flex-start;gap:9px;font-size:12.5px;
+  }
+  .type-legend .dot{
+    width:11px;height:11px;border-radius:3px;flex:none;margin-top:5px;
+  }
+  .type-legend .tl b{font-weight:700;}
+  .type-legend .tl span{color:var(--ink-soft);}
+
+  .meta-row{
+    display:flex;flex-wrap:wrap;gap:18px;margin-top:20px;
+    padding-top:18px;border-top:1px solid var(--line-soft);
+  }
+  .meta-item{font-size:12.5px;color:var(--ink-soft);}
+  .meta-item b{
+    display:block;font-family:"Shippori Mincho",serif;
+    font-size:19px;color:var(--ink);font-weight:700;line-height:1.3;
+  }
+
+  /* ---- buttons ---- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:inherit;font-size:15px;font-weight:700;
+    padding:14px 26px;border-radius:var(--radius-sm);
+    border:1px solid var(--accent);cursor:pointer;
+    transition:transform .08s ease,background .15s ease,color .15s ease;
+  }
+  .btn:active{transform:scale(.985);}
+  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary:hover{background:var(--accent-deep);}
+  .btn-ghost{background:transparent;color:var(--accent);}
+  .btn-ghost:hover{background:var(--accent-soft);}
+  .btn-block{display:flex;width:100%;}
+  .btn-sm{font-size:13px;padding:9px 16px;}
+
+  /* ---- quiz ---- */
+  .quiz-top{
+    display:flex;align-items:center;gap:14px;margin-bottom:22px;
+  }
+  .quiz-count{
+    font-size:12px;color:var(--ink-soft);white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+  }
+  .quiz-count b{
+    font-family:"Shippori Mincho",serif;font-size:16px;color:var(--ink);
+  }
+  .track{
+    flex:1;height:6px;background:var(--line-soft);
+    border-radius:4px;overflow:hidden;
+  }
+  .track .fill{
+    height:100%;background:var(--accent);border-radius:4px;
+    transition:width .35s cubic-bezier(.4,0,.2,1);
+  }
+  .q-cat{
+    font-size:11px;letter-spacing:.2em;font-weight:700;
+    color:var(--accent);margin-bottom:10px;
+  }
+  .q-text{
+    font-family:"Shippori Mincho",serif;font-weight:500;
+    font-size:21px;line-height:1.6;letter-spacing:.02em;
+    min-height:96px;display:flex;align-items:center;
+  }
+  .scale{margin-top:8px;}
+  .opt{
+    display:flex;align-items:center;gap:14px;width:100%;
+    text-align:left;font-family:inherit;font-size:15px;color:var(--ink);
+    background:var(--surface-soft);
+    border:1px solid var(--line);
+    border-radius:var(--radius-sm);
+    padding:14px 16px;margin:9px 0;cursor:pointer;
+    transition:border-color .12s ease,background .12s ease,transform .08s ease;
+  }
+  .opt:hover{border-color:var(--accent);background:var(--accent-soft);}
+  .opt:active{transform:scale(.99);}
+  .opt.sel{border-color:var(--accent);background:var(--accent-soft);}
+  .opt .key{
+    width:26px;height:26px;flex:none;border-radius:50%;
+    border:1px solid var(--line);background:var(--surface);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:700;color:var(--ink-soft);
+  }
+  .opt.sel .key{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .quiz-nav{margin-top:18px;}
+
+  /* ---- result ---- */
+  .result-head{text-align:center;padding:8px 0 4px;}
+  .result-head .rh-label{
+    font-size:11px;letter-spacing:.26em;font-weight:700;
+    color:var(--accent);margin-bottom:10px;
+  }
+  .result-head h2{
+    font-family:"Shippori Mincho",serif;font-weight:700;
+    font-size:34px;letter-spacing:.04em;
+  }
+  .code-badge{
+    display:inline-flex;align-items:baseline;gap:8px;
+    margin-top:14px;padding:7px 18px;border-radius:40px;
+    background:var(--accent-soft);
+  }
+  .code-badge .ci{
+    font-family:"Shippori Mincho",serif;font-weight:700;
+    font-size:20px;letter-spacing:.14em;color:var(--accent-deep);
+  }
+  .code-badge .cl{
+    font-size:10px;letter-spacing:.18em;font-weight:700;
+    color:var(--accent);
+  }
+
+  .bar{display:flex;align-items:center;gap:12px;margin:11px 0;}
+  .bar .bn{
+    width:128px;flex:none;font-size:13px;display:flex;
+    align-items:center;gap:8px;
+  }
+  .bar .bn .tag{
+    width:18px;height:18px;flex:none;border-radius:4px;color:#fff;
+    font-size:9px;font-weight:700;display:flex;
+    align-items:center;justify-content:center;
+  }
+  .bar .bn b{font-weight:700;}
+  .bar .btrk{
+    flex:1;height:15px;background:var(--line-soft);
+    border-radius:8px;overflow:hidden;
+  }
+  .bar .bfil{
+    height:100%;border-radius:8px;
+    transition:width .6s cubic-bezier(.4,0,.2,1);
+  }
+  .bar .bpc{
+    width:42px;flex:none;text-align:right;font-size:13px;
+    font-weight:700;font-variant-numeric:tabular-nums;
+  }
+  .bar-note{
+    font-size:11.5px;color:var(--ink-soft);margin-top:12px;
+    padding-top:12px;border-top:1px solid var(--line-soft);
+  }
+
+  .type-card{
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 22px;margin-top:14px;background:var(--surface);
+  }
+  .type-card.lead-card{border-width:2px;}
+  .tc-head{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+  .tc-rank{
+    font-size:10.5px;letter-spacing:.16em;font-weight:700;
+    color:#fff;padding:4px 10px;border-radius:5px;flex:none;
+  }
+  .tc-name{
+    font-family:"Shippori Mincho",serif;font-weight:700;
+    font-size:20px;letter-spacing:.03em;
+  }
+  .tc-desc{font-size:13.5px;color:var(--ink-soft);margin-bottom:16px;}
+  .tc-block + .tc-block{margin-top:13px;}
+  .tc-block h4{
+    font-size:12px;letter-spacing:.04em;font-weight:700;
+    color:var(--ink);margin-bottom:7px;
+    display:flex;align-items:center;gap:7px;
+  }
+  .tc-block h4::before{
+    content:"";width:6px;height:6px;border-radius:50%;
+    background:var(--accent);flex:none;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:7px;}
+  .chip{
+    font-size:12px;padding:5px 11px;border-radius:6px;
+    background:var(--surface-soft);border:1px solid var(--line-soft);
+    color:var(--ink-soft);
+  }
+
+  .result-actions{
+    display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;
+  }
+  .result-actions .btn{flex:1;min-width:150px;}
+
+  /* ---- about / reference ---- */
+  .about{margin-top:16px;}
+  .about h3{
+    font-family:"Shippori Mincho",serif;font-size:15px;
+    font-weight:700;margin:18px 0 7px;letter-spacing:.03em;
+  }
+  .about h3:first-of-type{margin-top:0;}
+  .about p{font-size:13px;color:var(--ink-soft);}
+  .about ul{margin:7px 0 0 0;padding:0;list-style:none;}
+  .about li{
+    font-size:13px;color:var(--ink-soft);
+    padding-left:16px;position:relative;margin:5px 0;
+  }
+  .about li::before{
+    content:"";position:absolute;left:0;top:10px;
+    width:5px;height:5px;border-radius:50%;background:var(--accent);
+  }
+  .about li b{color:var(--ink);font-weight:700;}
+  .disclaimer{
+    margin-top:16px;padding:14px 16px;border-radius:var(--radius-sm);
+    background:var(--surface-soft);border:1px solid var(--line-soft);
+    font-size:12px;color:var(--ink-soft);line-height:1.7;
+  }
+
+  footer{
+    text-align:center;margin-top:30px;font-size:11.5px;
+    color:var(--ink-soft);line-height:1.9;
+  }
+  footer .src{color:var(--ink);font-weight:700;}
+
+  .hidden{display:none !important;}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;
+    margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}
+
+  @media (max-width:560px){
+    header h1{font-size:24px;}
+    .wrap{padding:0 16px;}
+    .card{padding:20px 18px;}
+    .q-text{font-size:18px;min-height:84px;}
+    .result-head h2{font-size:27px;}
+    .type-legend{grid-template-columns:1fr;}
+    .bar .bn{width:104px;font-size:12px;}
+  }
+
+  @media print{
+    body{background:#fff;padding:0;}
+    .no-print{display:none !important;}
+    .card,.type-card{border-color:#ccc;break-inside:avoid;}
+    header{padding-top:10px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">CAREER APTITUDE</div>
+    <h1 class="serif">職業適性診断</h1>
+    <p class="lead">RIASEC（ホランド理論）にもとづく40問の自己診断</p>
+    <div class="rule"></div>
+  </header>
+
+  <main>
+
+    <!-- ===== INTRO ===== -->
+    <section id="screen-intro">
+      <div class="card">
+        <div class="section-label serif">この診断について</div>
+        <p class="intro-text">
+          全<strong>40問</strong>の質問に「どのくらい当てはまるか」を5段階で答えると、
+          あなたの興味・志向の傾向を<strong>6つの適性タイプ</strong>で測り、
+          向いている<strong>職種・業種</strong>を提示します。所要時間は約5分。
+          結果はこのブラウザ内だけで計算され、どこにも送信・保存されません。
+        </p>
+        <div class="type-legend">
+          <div class="tl"><span class="dot" style="background:var(--c-r)"></span><span><b>現実的（R）</b>　手を動かす・技術志向</span></div>
+          <div class="tl"><span class="dot" style="background:var(--c-i)"></span><span><b>研究的（I）</b>　探究・分析志向</span></div>
+          <div class="tl"><span class="dot" style="background:var(--c-a)"></span><span><b>芸術的（A）</b>　創造・表現志向</span></div>
+          <div class="tl"><span class="dot" style="background:var(--c-s)"></span><span><b>社会的（S）</b>　支援・対人志向</span></div>
+          <div class="tl"><span class="dot" style="background:var(--c-e)"></span><span><b>企業的（E）</b>　けん引・達成志向</span></div>
+          <div class="tl"><span class="dot" style="background:var(--c-c)"></span><span><b>慣習的（C）</b>　管理・着実志向</span></div>
+        </div>
+        <div class="meta-row">
+          <div class="meta-item">質問数<b>40問</b></div>
+          <div class="meta-item">所要時間<b>約5分</b></div>
+          <div class="meta-item">理論的背景<b>RIASEC</b></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;">
+        <button class="btn btn-primary btn-block" id="start-btn">診断をはじめる</button>
+      </div>
+    </section>
+
+    <!-- ===== QUIZ ===== -->
+    <section id="screen-quiz" class="hidden">
+      <div class="card">
+        <div class="quiz-top">
+          <div class="quiz-count"><b id="q-now">1</b> / 40</div>
+          <div class="track"><div class="fill" id="q-fill" style="width:0%"></div></div>
+        </div>
+        <div class="q-cat" id="q-cat">QUESTION</div>
+        <div class="q-text serif" id="q-text">—</div>
+        <div class="scale" id="q-scale"></div>
+        <div class="quiz-nav">
+          <button class="btn btn-ghost btn-sm" id="back-btn">← 前の質問にもどる</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RESULT ===== -->
+    <section id="screen-result" class="hidden">
+      <div class="card">
+        <div class="result-head">
+          <div class="rh-label">YOUR RESULT</div>
+          <h2 class="serif" id="r-typename">—</h2>
+          <div class="code-badge">
+            <span class="ci" id="r-code">—</span>
+            <span class="cl">HOLLAND CODE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-label serif">6つの適性スコア</div>
+        <div id="r-bars"></div>
+        <div class="bar-note" id="r-barnote"></div>
+      </div>
+
+      <div id="r-types"></div>
+
+      <div class="result-actions no-print">
+        <button class="btn btn-primary" id="print-btn">結果を印刷 / PDF保存</button>
+        <button class="btn btn-ghost" id="restart-btn">もう一度診断する</button>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT (reference, always visible) ===== -->
+    <section class="card about" id="about">
+      <div class="section-label serif">参考：診断の理論的背景</div>
+      <h3>RIASEC（ホランド理論）とは</h3>
+      <p>
+        アメリカの心理学者ジョン・L・ホランド（John L. Holland）が提唱した
+        職業選択理論です。人の興味・志向と職業環境は、それぞれ6つのタイプに
+        分類でき、両者の相性が高いほど満足度や定着率が高まると考えます。
+        頭文字をとって「RIASEC（リアセック）」と呼ばれます。
+      </p>
+      <h3>6つのタイプ</h3>
+      <ul>
+        <li><b>R｜現実的（Realistic）</b>　道具・機械・身体を使い、具体的な成果を生む活動を好む。</li>
+        <li><b>I｜研究的（Investigative）</b>　観察・分析・探究を通じて理解を深める活動を好む。</li>
+        <li><b>A｜芸術的（Artistic）</b>　自由な発想と表現で新しいものを創る活動を好む。</li>
+        <li><b>S｜社会的（Social）</b>　人に教え・支え・助ける対人的な活動を好む。</li>
+        <li><b>E｜企業的（Enterprising）</b>　人を動かし、目標達成や事業推進を担う活動を好む。</li>
+        <li><b>C｜慣習的（Conventional）</b>　規則や手順に沿い、正確に処理・管理する活動を好む。</li>
+      </ul>
+      <h3>スコアとホランドコードの読み方</h3>
+      <p>
+        各質問は6タイプのいずれかに対応し、5段階の回答（1〜5点）を
+        タイプごとに合計して0〜100％に換算します。スコアの高い上位3タイプを
+        並べた3文字が「ホランドコード」で、適性の方向性を表します
+        （例：SIA＝社会的・研究的・芸術的）。上位タイプのスコアが
+        僅差の場合は、複数の領域にまたがる仕事が候補になります。
+      </p>
+      <div class="disclaimer">
+        ※ この診断は、ホランドのRIASEC理論を参考に作成した簡易版の自己診断ツールです。
+        標準化された心理検査（VPI職業興味検査、SDS等）ではなく、結果は興味・志向の
+        「傾向」を示す参考情報です。能力・適性を断定したり、進路や採用の合否を
+        判定するものではありません。重要な意思決定にあたっては、専門家への相談や
+        正式な検査の利用をおすすめします。
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div>理論的出典：<span class="src">J. L. Holland, "Making Vocational Choices" (1973 / 1997)</span></div>
+    <div>RIASEC理論にもとづく40問の簡易自己診断ツール ｜ 自由に利用・配布できます</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- data ---------- */
+  var QUESTIONS=[
+    {t:"R",q:"機械や道具を使って、実際に手を動かす作業が好きだ"},
+    {t:"R",q:"物がどう動くのか、その仕組みを知りたくなる"},
+    {t:"R",q:"体を動かしたり、現場に出たりする仕事に魅力を感じる"},
+    {t:"R",q:"図面・設計図・組み立て手順を見るのが好きだ"},
+    {t:"R",q:"自然の中や屋外で過ごす時間が好きだ"},
+    {t:"R",q:"壊れたものを修理したり、何かを組み立てたりするのが得意だ"},
+    {t:"R",q:"目に見える「モノ」が完成したときに達成感を感じる"},
+    {t:"I",q:"物事の「なぜ？」をとことん考えるのが好きだ"},
+    {t:"I",q:"データや数字を分析する作業は苦にならない"},
+    {t:"I",q:"新しい知識を学ぶこと自体が楽しい"},
+    {t:"I",q:"複雑な問題を、じっくり時間をかけて解くのが得意だ"},
+    {t:"I",q:"仮説を立てて検証していくプロセスにわくわくする"},
+    {t:"I",q:"一つの専門分野を深く追求する仕事がしたい"},
+    {t:"I",q:"科学・技術・学術的なテーマに関心がある"},
+    {t:"A",q:"自分のアイデアや感性を表現することが好きだ"},
+    {t:"A",q:"決まったやり方より、自分なりの方法で取り組みたい"},
+    {t:"A",q:"デザイン・文章・映像など、何かを「創る」ことに惹かれる"},
+    {t:"A",q:"美しさやセンスにはこだわりたいほうだ"},
+    {t:"A",q:"細かいルールや型にはめられると窮屈に感じる"},
+    {t:"A",q:"「面白い」「新しい」と言われるものを生み出したい"},
+    {t:"S",q:"人の悩みを聞いたり、相談に乗ったりするのが好きだ"},
+    {t:"S",q:"誰かの成長や、人の役に立てたときに強くやりがいを感じる"},
+    {t:"S",q:"チームで協力しながら進める仕事が好きだ"},
+    {t:"S",q:"人に何かを教えたり、わかりやすく伝えたりするのが得意だ"},
+    {t:"S",q:"困っている人がいると、放っておけないほうだ"},
+    {t:"S",q:"職場の人間関係や雰囲気を大切にしたい"},
+    {t:"S",q:"直接「ありがとう」と言われる仕事に魅力を感じる"},
+    {t:"E",q:"目標を立てて、その達成を目指すのが好きだ"},
+    {t:"E",q:"人を説得したり、まわりを巻き込んだりするのが得意だ"},
+    {t:"E",q:"リーダーとして物事を引っ張る役割が向いていると思う"},
+    {t:"E",q:"競争があったり、成果がはっきり出る環境でやる気が出る"},
+    {t:"E",q:"新しい事業やビジネスのアイデアを考えるのが好きだ"},
+    {t:"E",q:"必要なときに素早く決断することに抵抗がない"},
+    {t:"E",q:"大きな裁量と責任を持って働きたい"},
+    {t:"C",q:"正確さや細部への注意が求められる作業が得意だ"},
+    {t:"C",q:"計画を立て、手順どおりに進めるのが好きだ"},
+    {t:"C",q:"ルールや決まりがある環境のほうが、安心して働ける"},
+    {t:"C",q:"数字・書類・データを整理する作業は苦にならない"},
+    {t:"C",q:"コツコツ積み上げていく仕事にやりがいを感じる"},
+    {t:"C",q:"派手さより、安定して着実に成果を出すことを重視する"}
+  ];
+
+  var SCALE=[
+    {label:"とても当てはまる",score:5},
+    {label:"やや当てはまる",score:4},
+    {label:"どちらともいえない",score:3},
+    {label:"あまり当てはまらない",score:2},
+    {label:"まったく当てはまらない",score:1}
+  ];
+
+  var ORDER=["R","I","A","S","E","C"];
+
+  var TYPES={
+    R:{name:"現実的タイプ",short:"現実的",letter:"R",color:"var(--c-r)",
+       desc:"実際に手を動かし、目に見える成果を生み出すことに喜びを感じます。技術や技能を磨き、具体的・実務的な課題に取り組む仕事で力を発揮します。",
+       jobs:["機械・電気・設備エンジニア","生産技術・製造管理","建築・土木技術者","整備・メンテナンス","品質保証","フィールドエンジニア"],
+       inds:["製造業（メーカー全般）","建設・プラント","自動車・機械","インフラ（電力・鉄道）","食品生産・農業"]},
+    I:{name:"研究的タイプ",short:"研究的",letter:"I",color:"var(--c-i)",
+       desc:"「なぜ？」を突き詰め、論理と分析で答えを導くのが得意。専門性を深め、知的に難しい課題に向き合う仕事で輝きます。",
+       jobs:["研究開発（R&D）","データサイエンティスト・アナリスト","ITエンジニア（システム開発）","専門コンサルタント","知財・特許","医療・薬学系専門職"],
+       inds:["製薬・バイオ・ヘルスケア","IT・ソフトウェア","化学・素材","金融（リサーチ系）","シンクタンク・研究機関"]},
+    A:{name:"芸術的タイプ",short:"芸術的",letter:"A",color:"var(--c-a)",
+       desc:"自分の感性とアイデアを形にすることに価値を感じます。独自性が認められ、自由度の高い環境で創造性を発揮します。",
+       jobs:["デザイナー（グラフィック・UI/UX）","商品企画・開発","編集・ライター","広告・クリエイティブ制作","映像・コンテンツ制作","ブランドマネジメント"],
+       inds:["広告・マスコミ","エンタメ・ゲーム","出版・メディア","アパレル・ファッション","Web・デジタルコンテンツ"]},
+    S:{name:"社会的タイプ",short:"社会的",letter:"S",color:"var(--c-s)",
+       desc:"人と関わり、誰かの役に立つことに強いやりがいを感じます。教える・支える・つなぐ役割で本領を発揮します。",
+       jobs:["人事・人材育成","教育・研修","関係構築型の営業","カスタマーサクセス・接客","医療・福祉・介護","キャリア支援・カウンセラー"],
+       inds:["教育・人材","医療・福祉","観光・ホスピタリティ","小売・サービス","公共サービス・NPO"]},
+    E:{name:"企業的タイプ",short:"企業的",letter:"E",color:"var(--c-e)",
+       desc:"目標達成と影響力の発揮に意欲を燃やします。人を動かし、ビジネスを前に進める仕事で力を発揮します。",
+       jobs:["営業・事業開発","経営企画","マーケティング","プロジェクトマネージャー","コンサルタント","起業・新規事業"],
+       inds:["商社","コンサルティング","金融（銀行・証券）","不動産","スタートアップ・ベンチャー","小売・流通"]},
+    C:{name:"慣習的タイプ",short:"慣習的",letter:"C",color:"var(--c-c)",
+       desc:"正確さと着実さで物事を支えます。ルールや手順がある環境で、ミスなく成果を積み上げることが得意です。",
+       jobs:["経理・財務","法務・コンプライアンス","一般事務・営業事務","品質管理","物流・購買管理","監査・内部統制"],
+       inds:["金融・保険","官公庁・行政","会計・法律事務所","物流・インフラ","大手企業の管理部門"]}
+  };
+
+  /* ---------- state ---------- */
+  var answers=new Array(QUESTIONS.length).fill(null);
+  var cur=0;
+  var screen="intro";
+
+  /* ---------- elements ---------- */
+  var $=function(id){return document.getElementById(id);};
+  var scIntro=$("screen-intro"),scQuiz=$("screen-quiz"),scResult=$("screen-result");
+
+  function show(name){
+    screen=name;
+    scIntro.classList.toggle("hidden",name!=="intro");
+    scQuiz.classList.toggle("hidden",name!=="quiz");
+    scResult.classList.toggle("hidden",name!=="result");
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  /* ---------- quiz rendering ---------- */
+  function renderQuiz(){
+    var q=QUESTIONS[cur];
+    $("q-now").textContent=cur+1;
+    $("q-fill").style.width=(cur/QUESTIONS.length*100)+"%";
+    $("q-cat").textContent="QUESTION "+(cur+1);
+    $("q-text").textContent=q.q;
+    var box=$("q-scale");
+    box.innerHTML="";
+    SCALE.forEach(function(s,i){
+      var b=document.createElement("button");
+      b.className="opt"+(answers[cur]===s.score?" sel":"");
+      b.setAttribute("type","button");
+      b.innerHTML='<span class="key">'+(i+1)+'</span><span>'+s.label+'</span>';
+      b.addEventListener("click",function(){choose(i);});
+      box.appendChild(b);
+    });
+    $("back-btn").textContent=cur===0?"← 説明にもどる":"← 前の質問にもどる";
+  }
+
+  function choose(i){
+    answers[cur]=SCALE[i].score;
+    var opts=$("q-scale").querySelectorAll(".opt");
+    opts.forEach(function(o,idx){o.classList.toggle("sel",idx===i);});
+    setTimeout(function(){
+      if(cur<QUESTIONS.length-1){cur++;renderQuiz();}
+      else{renderResult();show("result");}
+    },190);
+  }
+
+  function goBack(){
+    if(cur>0){cur--;renderQuiz();}
+    else{show("intro");}
+  }
+
+  /* ---------- scoring ---------- */
+  function computeScores(){
+    var sum={},cnt={};
+    ORDER.forEach(function(k){sum[k]=0;cnt[k]=0;});
+    QUESTIONS.forEach(function(q,i){
+      var v=answers[i]||1;
+      sum[q.t]+=v;cnt[q.t]++;
+    });
+    var pct={};
+    ORDER.forEach(function(k){
+      pct[k]=Math.round((sum[k]-cnt[k])/(4*cnt[k])*100);
+    });
+    return pct;
+  }
+
+  /* ---------- result rendering ---------- */
+  function renderResult(){
+    var pct=computeScores();
+    var rank=ORDER.slice().sort(function(a,b){
+      if(pct[b]!==pct[a])return pct[b]-pct[a];
+      return ORDER.indexOf(a)-ORDER.indexOf(b);
+    });
+    var code=rank.slice(0,3).map(function(k){return TYPES[k].letter;}).join("");
+    var top=TYPES[rank[0]];
+
+    $("r-typename").textContent=top.name;
+    $("r-code").textContent=code;
+
+    /* bars */
+    var bars=$("r-bars");
+    bars.innerHTML="";
+    rank.forEach(function(k){
+      var T=TYPES[k];
+      var row=document.createElement("div");
+      row.className="bar";
+      row.innerHTML=
+        '<div class="bn"><span class="tag" style="background:'+T.color+'">'+T.letter+'</span><b>'+T.short+'</b></div>'+
+        '<div class="btrk"><div class="bfil" style="width:0%;background:'+T.color+'"></div></div>'+
+        '<div class="bpc">'+pct[k]+'%</div>';
+      bars.appendChild(row);
+      var fill=row.querySelector(".bfil");
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){fill.style.width=pct[k]+"%";});
+      });
+    });
+    $("r-barnote").textContent=
+      "スコアの高い上位3タイプ（"+code+"）が、あなたの適性の方向性を表します。"+
+      "上位の差が小さいときは、複数タイプにまたがる仕事も候補になります。";
+
+    /* type cards */
+    var box=$("r-types");
+    box.innerHTML="";
+    rank.slice(0,3).forEach(function(k,idx){
+      var T=TYPES[k];
+      var card=document.createElement("div");
+      card.className="type-card"+(idx===0?" lead-card":"");
+      card.style.borderColor=T.color;
+      var rankLabel=idx===0?"第1適性":"第"+(idx+1)+"適性";
+      var jobChips=T.jobs.map(function(j){return '<span class="chip">'+j+'</span>';}).join("");
+      var indChips=T.inds.map(function(j){return '<span class="chip">'+j+'</span>';}).join("");
+      card.innerHTML=
+        '<div class="tc-head">'+
+          '<span class="tc-rank" style="background:'+T.color+'">'+rankLabel+'</span>'+
+          '<span class="tc-name serif">'+T.name+'</span>'+
+        '</div>'+
+        '<p class="tc-desc">'+T.desc+'</p>'+
+        '<div class="tc-block"><h4>向いている職種</h4><div class="chips">'+jobChips+'</div></div>'+
+        '<div class="tc-block"><h4>向いている業種</h4><div class="chips">'+indChips+'</div></div>';
+      box.appendChild(card);
+    });
+  }
+
+  /* ---------- events ---------- */
+  $("start-btn").addEventListener("click",function(){
+    answers=new Array(QUESTIONS.length).fill(null);
+    cur=0;renderQuiz();show("quiz");
+  });
+  $("back-btn").addEventListener("click",goBack);
+  $("restart-btn").addEventListener("click",function(){
+    answers=new Array(QUESTIONS.length).fill(null);
+    cur=0;show("intro");
+  });
+  $("print-btn").addEventListener("click",function(){window.print();});
+
+  document.addEventListener("keydown",function(e){
+    if(screen!=="quiz")return;
+    if(e.key>="1"&&e.key<="5"){choose(parseInt(e.key,10)-1);}
+    else if(e.key==="Backspace"){e.preventDefault();goBack();}
+  });
+
+})();
+</script>
+
+</body>
+</html>
